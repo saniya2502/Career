@@ -27,7 +27,6 @@
 				{
 					echo '<script> alert("Thankyou for Contacting Us. We\'ll reply you soon."); </script>';
 				}
-				
 				else
 				{
 					echo '<script> alert("Sorry, Connection problem, mail has been discarded !!."); </script>';
