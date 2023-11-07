@@ -20,7 +20,7 @@
 	<div id="body_struct">
 	
 		<!-- Start of Search Div -->
-		<div id="jobfair_search" );>
+		<div id="jobfair_search">
 		
 			<!-- Start of Body Heading Div -->
 			<div class="heading">
