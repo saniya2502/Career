@@ -1,7 +1,6 @@
 <?php
 	ob_start();	//To add the functionality of header() function.
 	session_start();
-	
 	//Including database connection files to the page.
 	require 'db.connect.php';
 	
