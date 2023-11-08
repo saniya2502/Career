@@ -17,18 +17,46 @@
 			!empty($_POST['search_exp']) || !empty($_POST['search_func_area_ddl']) || !empty($_POST['search_industry_type_ddl']))
 		{
 			//Initializing variables with the user inputs.
-			$key = $_POST['search_keyword'];
-			$location = $_POST['search_location'];
-			$salary = $_POST['search_salary_ddl'] * 100000;
-			$experience = $_POST['search_exp'];
-			$func_area = $_POST['search_func_area_ddl'];
-			$industry_type = $_POST['search_industry_type_ddl'];
-			
+			$searchCriteria = array();
 
-							
-			//Query which is going to execute to for database manipulation.
-			$query = "SELECT * FROM job_details WHERE key_skill LIKE '%$key%' OR location='$location' OR
-						ctc='$salary' OR func_area='$func_area' OR industry_type='$industry_type'";
+if (!empty($_POST['search_keyword'])) {
+    $key = $_POST['search_keyword'];
+    $searchCriteria[] = "key_skill LIKE '%$key%'";
+}
+
+if (!empty($_POST['search_location'])) {
+    $location = $_POST['search_location'];
+    $searchCriteria[] = "location='$location'";
+}
+
+if (!empty($_POST['search_salary_ddl'])) {
+    $salary = $_POST['search_salary_ddl'] * 100000;
+    $searchCriteria[] = "ctc='$salary'";
+}
+
+if (!empty($_POST['search_exp'])) {
+    $experience = $_POST['search_exp'];
+    $searchCriteria[] = "experience='$experience'";
+}
+
+if (!empty($_POST['search_func_area_ddl'])) {
+    $func_area = $_POST['search_func_area_ddl'];
+    $searchCriteria[] = "func_area='$func_area'";
+}
+
+if (!empty($_POST['search_industry_type_ddl'])) {
+    $industry_type = $_POST['search_industry_type_ddl'];
+    $searchCriteria[] = "industry_type='$industry_type'";
+}
+
+// Construct the WHERE clause of the query
+$whereClause = implode(' OR ', $searchCriteria);
+
+// Query which is going to execute for database manipulation
+$query = "SELECT * FROM job_details";
+if (!empty($whereClause)) {
+    $query .= " WHERE $whereClause";
+}
 			$query_search = mysqli_query($conn,$query);
 						
 				echo '	<table border="1">
@@ -69,4 +97,3 @@
 			{	echo '<script> alert("No result Found. Search with different keywords"); </script>';	}
 		}
 	}
-?>
